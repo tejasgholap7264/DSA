@@ -1,0 +1,31 @@
+//without visited array
+class Solution {
+    int rows;
+    int cols;
+
+    public int numIslands(char[][] grid) {
+        int count =0;
+        rows = grid.length;
+        cols = grid[0].length;
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                if(grid[i][j]=='1'){
+                    count++;
+                    dfs(i,j,grid);
+                }
+            }
+        }
+        return count;
+    }
+
+    public void dfs(int row,int col,char[][] grid){
+        if(row<0 || row>=rows || col<0 || col>=cols || grid[row][col]=='0') return;
+        grid[row][col] ='0';
+
+        //neighbours
+        dfs(row-1,col,grid); //up
+        dfs(row,col+1,grid); //right
+        dfs(row+1,col,grid); //down
+        dfs(row,col-1,grid); //left
+    }
+}

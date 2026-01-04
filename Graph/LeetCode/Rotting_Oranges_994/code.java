@@ -1,3 +1,4 @@
+// MultiSource point BFS
 class Solution {
     public int orangesRotting(int[][] grid) {
         int m=grid.length;
@@ -54,3 +55,4 @@ class Solution {
         return -1;
     }
 }
+

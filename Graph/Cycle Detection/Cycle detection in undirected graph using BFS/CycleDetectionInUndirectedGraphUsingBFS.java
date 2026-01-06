@@ -1,18 +1,23 @@
+//bfs
 import java.util.*;
-
 class Solution {
-    public boolean checkIfCycle(int src,int parent, ArrayList<ArrayList<Integer>> adj, boolean visited[]){
-       visited[src] = true;
-       for(int neighbour : adj.get(src)){
-           if(neighbour == parent) continue;
-           if(visited[neighbour]){
-               return true;
-           }else{
-               if(checkIfCycle(neighbour,src,adj,visited)){
-                   return true;
-               }
-           }
-       }
+    public boolean checkIfCycle(int src, ArrayList<ArrayList<Integer>> adj, boolean visited[]){
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[]{src,-1});
+        visited[src] = true;
+        while(!queue.isEmpty()){
+            int pair[] = queue.poll();
+            int node = pair[0];
+            int parent = pair[1];
+            for(int neighbour : adj.get(node)){
+                if(neighbour==parent) continue;
+                if(visited[neighbour]) return true;
+                else{
+                    queue.offer(new int[]{neighbour,node});
+                    visited[neighbour] = true;
+                }
+            }
+        }
         return false;
         
     }
@@ -20,9 +25,9 @@ class Solution {
     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
         // Code here
         
-        boolean visited[] = new boolean[V]; //false
+        boolean visited[] = new boolean[V];
         for(int i=0;i<V;i++){
-            if(!visited[i] && checkIfCycle(i,-1,adj,visited)){
+            if(!visited[i] && checkIfCycle(i,adj,visited)){
                 return true;
             }
         }
